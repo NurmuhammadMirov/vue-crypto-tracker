@@ -10,19 +10,38 @@ body {
   font-family: 'Segoe UI', sans-serif;
 }
 
+.navbar {
+  max-width: 1000px;
+  display: flex;
+  align-items: center;
+  background: #1e1e2f;
+  color: white;
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  border-radius: 50px;
+}
+
 nav {
   display: flex;
-  gap: 20px;
-  background: #111;
-  padding: 1rem;
+  gap: 1.5rem;
 
   a {
-    color: #42b983;
+    color: #ffffff;
     text-decoration: none;
-  }
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.3s ease;
 
-  a.router-link-active {
-    font-weight: bold;
+    &:hover {
+      color: #42b983;
+    }
+
+    &.router-link-active {
+      color: #42b983;
+      font-weight: 700;
+      border-bottom: 2px solid #42b983;
+    }
   }
 }
 

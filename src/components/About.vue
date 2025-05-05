@@ -1,21 +1,34 @@
 <template>
-  <div class="crypto-detail" v-if="coin">
-    <h1>{{ coin.name }} ({{ coin.symbol.toUpperCase() }})</h1>
-    <img :src="coin.image.large" :alt="coin.name" class="coin-image" />
+  <div class="about">
+    <h1>🧠 About This App</h1>
 
-    <div class="details">
-      <p><strong>Current Price:</strong>$ {{ coin.market_data.current_price.usd.toLocaleString() }}</p>
-      <p><strong>Market Cap:</strong>$ {{ coin.market_data.market_cap.usd.toLocaleString() }}</p>
-      <p><strong>Total Volume:</strong>$ {{ coin.market_data.total_volume.usd.toLocaleString() }}</p>
-      <p><strong>24h High:</strong>$ {{ coin.market_data.high_24h.usd.toLocaleString() }}</p>
-      <p><strong>24h Low:</strong>$ {{ coin.market_data.low_24h.usd.toLocaleString() }}</p>
-    </div>
+    <p>
+      This app tracks the top 100 cryptocurrencies using real-time market data from the
+      <a href="https://www.coingecko.com/en/api" target="_blank" rel="noopener noreferrer">CoinGecko API</a>.
+    </p>
 
-    <div class="description" v-html="coin.description.en"></div>
+    <p>
+      Built with <strong>Vue 3</strong>, <strong>Vue Router</strong>, and <strong>Vite</strong>.
+    </p>
+
+    <p>
+      Designed for learning purposes — built with 💚 by <a href="https://github.com/NurmuhammadMirov" target="_blank">Mirov</a>.
+    </p>
   </div>
-
-  <p v-else class="loading">Loading...</p>
 </template>
 
-<script>
-</script>
+<style scoped>
+.about {
+  max-width: 600px;
+  margin: auto;
+  padding: 2rem;
+  line-height: 1.6;
+}
+a {
+  color: #42b983;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline
+}
+</style>
