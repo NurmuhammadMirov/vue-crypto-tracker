@@ -1,0 +1,28 @@
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+}
+
+nav {
+  display: flex;
+  gap: 20px;
+  background: #111;
+  padding: 1rem;
+
+  a {
+    color: #42b983;
+    text-decoration: none;
+  }
+
+  a.router-link-active {
+    font-weight: bold;
+  }
+}
+
