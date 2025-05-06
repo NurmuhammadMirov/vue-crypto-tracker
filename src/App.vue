@@ -7,5 +7,6 @@
       </nav>
     </header>
     <router-view />
+    <VueQueryDevtools />
   </div>
 </template>

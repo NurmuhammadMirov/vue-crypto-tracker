@@ -1,44 +1,49 @@
 <template>
-  <div class="crypto-detail" v-if="coin">
-    <div class="coin-header">
-      <img :src="coin.image.large" :alt="coin.name" />
-      <h1>{{ coin.name }} <span>({{ coin.symbol.toUpperCase() }})</span></h1>
-    </div>
-
-    <div class="coin-card">
-      <div class="stat"><label>Current Price: </label>${{ coin.market_data.current_price.usd.toLocaleString() }}</div>
-      <div class="stat"><label>Market Cap: </label>${{ coin.market_data.market_cap.usd.toLocaleString() }}</div>
-      <div class="stat"><label>Total Volume: </label>${{ coin.market_data.total_volume.usd.toLocaleString() }}</div>
-      <div class="stat"><label>24h High: </label>${{ coin.market_data.high_24h.usd.toLocaleString() }}</div>
-      <div class="stat"><label>24h Low: </label>${{ coin.market_data.low_24h.usd.toLocaleString() }}</div>
-    </div>
-
-    <div class="coin-desc">
-      <h2>📘 Description</h2>
-      <div v-html="coin.description.en"></div>
+  <div class="crypto-detail">
+    <p v-if="isLoading">Loading coin data...</p>
+    <p v-else-if="isError" style="color: red;">Error: {{ error.message }}</p>
+    <div v-else>
+      <div class="coin-header">
+        <img :src="coin.image.large" :alt="coin.name" />
+        <h1>{{ coin.name }} <span>({{ coin.symbol.toUpperCase() }})</span></h1>
+        <button @click="refetch" class="refresh-btn">🔄 Refresh</button>
+      </div>
+  
+      <div class="coin-card">
+        <div class="stat"><label>Current Price: </label>${{ coin.market_data.current_price.usd.toLocaleString() }}</div>
+        <div class="stat"><label>Market Cap: </label>${{ coin.market_data.market_cap.usd.toLocaleString() }}</div>
+        <div class="stat"><label>Total Volume: </label>${{ coin.market_data.total_volume.usd.toLocaleString() }}</div>
+        <div class="stat"><label>24h High: </label>${{ coin.market_data.high_24h.usd.toLocaleString() }}</div>
+        <div class="stat"><label>24h Low: </label>${{ coin.market_data.low_24h.usd.toLocaleString() }}</div>
+      </div>
+  
+      <div class="coin-desc">
+        <h2>📘 Description</h2>
+        <div v-html="coin.description.en"></div>
+      </div>
     </div>
   </div>
-
-  <p v-else class="loading">Loading coin data...</p>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
+import { useQuery } from '@tanstack/vue-query'
 
 const route = useRoute();
-const coin = ref(null);
+const coinId = route.params.id;
 
 const fetchCoin = async () => {
-  try {
-    const res = await fetch(`https://api.coingecko.com/api/v3/coins/${route.params.id}`);
-    coin.value = await res.json();
-  } catch (error) {
-    console.error('Error fetching coin:', error);
-  }
+  const res = await fetch(`https://api.coingecko.com/api/v3/coins/${coinId}`);
+  if (!res.ok) throw new Error("Failed to fetch coin details");
+  return await res.json();
 }
 
-onMounted(fetchCoin);
+const { data: coin, isLoading, isError, error, refetch } = useQuery({
+  queryKey: ['coin', coinId],
+  queryFn: fetchCoin,
+  staleTime: 1000 * 60 * 10, // 10 mins
+  refetchOnWindowFocus: true,
+});
 </script>
 
 <style scoped>
@@ -67,6 +72,22 @@ onMounted(fetchCoin);
   span {
     font-size: 1.2rem;
     color: #888;
+  }
+
+  .refresh-btn {
+    margin-top: 10px;
+    padding: 6px 12px;
+    background: #42b983;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+
+    &:hover {
+      background: #2e9f6c;
+    }
   }
 }
 
