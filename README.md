@@ -51,4 +51,27 @@ It uses the **CoinGecko API** to display prices, 24h % changes, and details for 
 
 ---
 
+## 📦 Install & Run Locally
+
+### 1. Clone the repo
+
+```bash
+git clone https://github.com/NurmuhammadMirov/vue-crypto-tracker.git
+cd vue-crypto-tracker
+```
+### 2. Install dependencies
+
+```bash
+npm install
+```
+### 3. Start the dev server
+
+```bash
+npm run dev
+```
+Visit http://localhost:5173 in your browser 🚀
+
+## 📘 API Credit
+Data is provided by the [CoinGecko API](https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1) — free and open without a key.
+
 Made with ❤️ while learning Vue 3
