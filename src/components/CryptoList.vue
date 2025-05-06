@@ -20,8 +20,8 @@
             <tr>
               <th>#</th>
               <th>Coin</th>
-              <th>Price</th>
-              <th>24h %</th>
+              <th width="25%">Price</th>
+              <th width="25%">24h %</th>
             </tr>
           </thead>
         </table>
@@ -39,8 +39,8 @@
                   <img :src="coin.image" alt="">
                   {{ coin.name }} ({{ coin.symbol.toUpperCase() }})
                 </td>
-                <td>$ {{ coin.current_price.toLocaleString() }}</td>
-                <td :class="{red: coin.price_change_percentage_24h < 0, green: coin.price_change_percentage_24h >= 0}">
+                <td width="25%">$ {{ coin.current_price.toLocaleString() }}</td>
+                <td width="25%" :class="{red: coin.price_change_percentage_24h < 0, green: coin.price_change_percentage_24h >= 0}">
                   {{ coin.price_change_percentage_24h.toFixed(2) }}%
                 </td>
               </tr>
